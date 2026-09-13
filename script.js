@@ -1,165 +1,192 @@
 const questions = [
   {
-    clue: "Flower found in a garden (6)",
-    answer: "GARDEN",
-    hint: "The clue is a simple definition.",
-    explanation: "The answer is GARDEN. It is a place where flowers can be found."
+    // ONE
+    clue: "A genius faceless man goes over eleven lines in Latin (4)",
+    answer: "XIAN",
+    definition: "A genius",
+    indicators: "Faceless, goes over, lines in Latin",
+    fodder: "Man, eleven"
   },
+
   {
-    clue: "Animal doctor with a broken leg? (3)",
-    answer: "VET",
-    hint: "Think of someone who treats animals.",
-    explanation: "VET is the definition: a veterinarian is an animal doctor."
+    // TWO
+    clue: "Fena's love, after hearing out sea and before a first of romances (6)",
+    answer: "CLOVER",
+    definition: "Fena's",
+    indicators: "After, hearing out, before, first.",
+    fodder: "Love, sea, romances"
   },
+
   {
-    clue: "Quiet bird heard around the world (4)",
-    answer: "DOVE",
-    hint: "A peaceful bird.",
-    explanation: "DOVE fits the definition of a bird and is commonly associated with peace."
+    // THREE
+    clue: 'So cool coming from Xian, hearing: "muse", sick! (5)',
+    answer: "MUSIC",
+    definition: "So cool coming from Xian",
+    indicators: "Hearing",
+    fodder: "Muse, sick"
   },
+
   {
-    clue: "Angry pirate's treasure? (5)",
-    answer: "IRE",
-    hint: "A short word meaning anger.",
-    explanation: "IRE means anger. The clue uses a playful surface reading."
+    // FOUR
+    clue: 'What I adore about you may be large, a chopped off dick creams without the head (3, 6)',
+    answer: 'BIG DREAMS',
+    definition: 'What I adore about you',
+    indicators: 'May be, chopped off, without the head',
+    fodder: 'Large, dick, creams'
   },
+
   {
-    clue: "Endless road for a trip (3)",
-    answer: "ROD",
-    hint: "Take a familiar word and remove its last letter.",
-    explanation: "ROAD without its final letter gives ROA, so this clue is intentionally a light practice clue; the intended answer is ROD by a playful letter change."
+    // FIVE
+    clue: 'Simply texting "k" before a session without positions becomes chaotic and you deserve a lot (6)',
+    answer: 'KISSES',
+    definition: 'You deserve a lot',
+    indicators: 'Simply texting, before, without positions, becomes chaotic',
+    fodder: 'K, session'
   },
+
   {
-    clue: "Flower girl, briefly (4)",
-    answer: "ROSE",
-    hint: "A classic flower.",
-    explanation: "ROSE is the definition: it is a flower."
+    // SIX
+    clue: "A student from FEU using tagalog, that's correct? (7)",
+    answer: 'TAMARAW',
+    definition: 'A student from FEU',
+    indicators: 'Using tagalog',
+    fodder: "That's correct"
   },
+
   {
-    clue: "Small mistake in a letter (4)",
-    answer: "ERR",
-    hint: "A verb meaning to make a mistake.",
-    explanation: "ERR means to make a mistake. The clue points directly to the definition."
+    // SEVEN
+    clue: 'Red and soft rice: 50% off, in conjunction with a non-governmental organization (5)',
+    answer: 'RINGO',
+    definition: 'Red and soft',
+    indicators: '50% off, in conjunction',
+    fodder: 'Rice, non-governmental organization'
   },
+
   {
-    clue: "Leader of a team, briefly (3)",
-    answer: "CAP",
-    hint: "Think of a sports team.",
-    explanation: "CAP can refer to a team captain in informal usage, especially in sports."
+    // EIGHT
+    clue: 'Eccentric band is purely a junior (3)',
+    answer: 'AJR',
+    definition: 'Eccentric band',
+    indicators: 'Purely',
+    fodder: 'A junior'
   },
+
   {
-    clue: "First of April is a joke (3)",
-    answer: "APR",
-    hint: "Look at the first three letters of April.",
-    explanation: "APR is the first three letters of APRIL. This is an abbreviation-style clue."
+    // NINE
+    clue: 'A snack brand and a color hides, and laid him on the green (10)',
+    answer: 'MONDEGREEN',
+    definition: 'And laid him on the green',
+    indicators: 'Snack brand, color hides',
+    fodder: 'And laid him on the green'
   },
+
   {
-    clue: "Cryptic puzzle solver's prize? (4)",
-    answer: "GLAD",
-    hint: "How you might feel after solving the final clue.",
-    explanation: "GLAD describes the feeling of being pleased after solving a puzzle."
-  }
+    // TEN
+    clue: "Xian and I, lurking in Rubber Soul's penultimate track (4)",
+    answer: 'FINE',
+    definition: 'Xian and I',
+    indicators: 'Lurking in',
+    fodder: "Rubber Soul's penultimate track"
+  },
+
+  {
+    // ELEVEN
+    clue: "Twist and Shout is a great number! (8)",
+    answer: 'THOUSAND',
+    definition: 'Is a great number',
+    indicators: 'Twist',
+    fodder: "And shout"
+  },
+
+  {
+    // TWELVE
+    clue: 'Initially, "Japanese" Japanese literature has liquids removed, very green indeed! (6)',
+    answer: 'NATURE',
+    definition: 'Very green indeed',
+    indicators: 'Initially, Japanese, removed',
+    fodder: "Japanese, literature, liquids"
+  },
 ];
 
-let current = 0;
-let solved = false;
+let currentQuestion = 0;
+const clue = document.getElementById("clue");
+const answer = document.querySelector("#answer input");
 
-const clueEl = document.getElementById("clue");
-const counterEl = document.getElementById("counter");
-const answerEl = document.getElementById("answer");
-const form = document.getElementById("answerForm");
-const feedbackEl = document.getElementById("feedback");
-const hintButton = document.getElementById("hintButton");
-const nextButton = document.getElementById("nextButton");
-const explanation = document.getElementById("explanation");
-const explanationText = document.getElementById("explanationText");
-const game = document.getElementById("game");
-const complete = document.getElementById("complete");
-const restartButton = document.getElementById("restartButton");
+const result = document.getElementById("result");
 
-function loadQuestion() {
-  const q = questions[current];
-  solved = false;
-  counterEl.textContent = `${current + 1} / ${questions.length}`;
-  clueEl.textContent = q.clue;
-  answerEl.value = "";
-  answerEl.disabled = false;
-  document.getElementById("checkButton").disabled = false;
-  feedbackEl.textContent = "";
-  feedbackEl.className = "feedback";
-  hintButton.disabled = false;
-  hintButton.textContent = "HINT";
-  nextButton.classList.add("hidden");
-  explanation.classList.add("hidden");
-  explanationText.textContent = "";
-  answerEl.focus();
+const hintsButton = document.getElementById("hints-button");
+const hintPopup = document.getElementById("hint-popup");
+const closeHints = document.getElementById("close-hints");
+
+function showQuestion() {
+  clue.textContent = questions[currentQuestion].clue;
+
+  answer.value = "";
+  result.textContent = "";
+
+  document.querySelectorAll(".hint-text").forEach(text => {
+      text.classList.remove("show");
+      text.textContent = "";
+  });
+
+  answer.focus();
 }
 
 function checkAnswer() {
-  if (solved) return;
+  const userAnswer = answer.value.trim().toUpperCase();
+  const correctAnswer = questions[currentQuestion].answer.toUpperCase();
 
-  const guess = answerEl.value.trim().toUpperCase();
-  const answer = questions[current].answer.toUpperCase();
-
-  if (!guess) {
-    feedbackEl.textContent = "Type an answer first.";
-    feedbackEl.className = "feedback incorrect";
-    answerEl.focus();
-    return;
-  }
-
-  if (guess === answer) {
-    solved = true;
-    feedbackEl.textContent = "✓ Correct!";
-    feedbackEl.className = "feedback correct";
-    answerEl.disabled = true;
-    document.getElementById("checkButton").disabled = true;
-    hintButton.disabled = true;
-    explanationText.textContent = questions[current].explanation;
-    explanation.classList.remove("hidden");
-
-    if (current < questions.length - 1) {
-      nextButton.textContent = "NEXT";
-      nextButton.classList.remove("hidden");
-    } else {
-      nextButton.textContent = "FINISH";
-      nextButton.classList.remove("hidden");
-    }
+  if (userAnswer === correctAnswer) {
+      result.textContent = "correct!";
+      result.className = "correct";
   } else {
-    feedbackEl.textContent = "Not quite. Try again.";
-    feedbackEl.className = "feedback incorrect";
-    answerEl.select();
+      result.textContent = "wrong!";
+      result.className = "wrong";
   }
 }
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  checkAnswer();
-});
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion >= questions.length) {
+      currentQuestion = 0;
+  }
+  showQuestion();
+}
 
-hintButton.addEventListener("click", () => {
-  if (solved) return;
-  feedbackEl.textContent = `Hint: ${questions[current].hint}`;
-  feedbackEl.className = "feedback";
-});
-
-nextButton.addEventListener("click", () => {
-  if (!solved) return;
-
-  if (current < questions.length - 1) {
-    current++;
-    loadQuestion();
-  } else {
-    game.classList.add("hidden");
-    complete.classList.remove("hidden");
+answer.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+      checkAnswer();
   }
 });
 
-restartButton.addEventListener("click", () => {
-  current = 0;
-  complete.classList.add("hidden");
-  game.classList.remove("hidden");
-  loadQuestion();
+hintsButton.addEventListener("click", function() {
+  hintPopup.classList.remove("hidden");
 });
 
-loadQuestion();
+closeHints.addEventListener("click", function() {
+  hintPopup.classList.add("hidden");
+});
+
+const hintButtons = document.querySelectorAll(".hint");
+
+hintButtons.forEach(button => {
+  button.addEventListener("click", function() {
+    const hintText = this.nextElementSibling;
+    let type;
+
+    if (this.classList.contains("definition")) {
+        type = "definition";
+    }
+    else if (this.classList.contains("indicators")) {
+        type = "indicators";
+    }
+    else if (this.classList.contains("fodder")) {
+        type = "fodder";
+    }
+
+    hintText.textContent = questions[currentQuestion][type];
+    hintText.classList.toggle("show");
+  });
+});
+
+showQuestion();
