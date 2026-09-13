@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minute Cryptic</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Minute Cryptic home">MINUTE CRYPTIC</a>
+      <div class="counter" id="counter">1 / 10</div>
+    </header>
+
+    <section class="game" id="game">
+      <div class="clue-wrap">
+        <p class="eyebrow">CRYPTIC CLUE</p>
+        <h1 id="clue">Loading...</h1>
+      </div>
+
+      <form id="answerForm" autocomplete="off">
+        <label for="answer" class="sr-only">Your answer</label>
+        <input id="answer" name="answer" type="text" spellcheck="false"
+               autocapitalize="characters" aria-describedby="feedback"
+               placeholder="Your answer">
+        <button type="submit" id="checkButton">CHECK</button>
+      </form>
+
+      <div class="actions">
+        <button class="text-button" id="hintButton" type="button">HINT</button>
+      </div>
+
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+
+      <button class="next-button hidden" id="nextButton" type="button">NEXT</button>
+
+      <div class="explanation hidden" id="explanation">
+        <p class="eyebrow">EXPLANATION</p>
+        <p id="explanationText"></p>
+      </div>
+    </section>
+
+    <section class="complete hidden" id="complete">
+      <p class="eyebrow">FINISHED</p>
+      <h2>Nice work.</h2>
+      <p>You completed all 10 cryptic clues.</p>
+      <button id="restartButton" type="button">PLAY AGAIN</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
